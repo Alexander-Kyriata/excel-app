@@ -41,6 +41,11 @@ module.exports = {
       "@core": path.resolve(__dirname, "src/core"),
     },
   },
+  devtool: isDev ? "source-map" : false,
+  devServer: {
+    port: 3000,
+    hot: isDev,
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -62,17 +67,12 @@ module.exports = {
       filename: filename("css"),
     })
   ],
-  devtool: isDev ? "source-map" : false,
-  devServer: {
-    port: 3000,
-    hot: isDev,
-  },
   module: {
     rules: [
       {
         test: /\.s[ac]ss$/i,
         use: [
-          {loader: MiniCssExtractPlugin.loader, options: {hmr: isDev, reloadAll: true}}, 
+          {loader: MiniCssExtractPlugin.loader}, 
           "css-loader",
           "sass-loader"
         ]
